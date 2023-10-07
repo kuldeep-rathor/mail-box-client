@@ -1,6 +1,26 @@
 .sidebar {
   display: flex;
   flex-direction: column;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+  position: relative;
+  background-color: transparent;
+}
+.sidebar_scroll {
+  max-height: calc(100vh - 400px);
+  overflow-y: scroll;
+  position: relative;
+}
+
+/* .sidebar_scroll::-webkit-scrollbar {
+  display: none;
+} */
+
+.sidebar_scroll::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
+.sidebar_scroll::-webkit-scrollbar-track {
+  background-color: transparent;
 }
 .compose__btn {
   padding: 10px 20px !important;
@@ -12,8 +32,27 @@
   max-width: 150px;
   color: black !important;
 }
-.sidebaroptions__heading{
+.sidebaroptions__heading {
   font-size: 15px;
   margin: 0;
   margin-left: 25px;
+}
+.sidebaroptions__hangouts {
+  font-size: 15px;
+  margin: 0;
+  margin-left: 25px;
+}
+.sidebar__bottom {
+  display: flex;
+  align-items: center;
+justify-content: space-between;
+color: rgb(94, 94, 94);
+cursor: pointer;
+}
+.sidebar__bottom:hover{
+  background-color: whitesmoke;
+}
+.sidebar__bottom .MuiAvatar-img {
+  height: 25px;
+  width: 25px;
 }
