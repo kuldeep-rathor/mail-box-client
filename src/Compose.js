@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./css/compose.css";
 import RemoveIcon from "@mui/icons-material/Remove";
 import HeightIcon from "@mui/icons-material/Height";
@@ -18,7 +18,14 @@ import { useDispatch } from "react-redux";
 import { closeSendMessage } from "./features/mailSlice";
 
 const Compose = () => {
+  const [to, setTo] = useState("");
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
   const dispatch = useDispatch();
+  const formSubmit = (e) => {
+    e.preventDefault();
+    
+  };
   return (
     <div className="compose">
       <div className="compose__header">
@@ -31,31 +38,45 @@ const Compose = () => {
           <CloseIcon onClick={() => dispatch(closeSendMessage())} />
         </div>
       </div>
-      <div className="compose__body">
-        <div className="compose__bodyForm">
-          <input type="email" placeholder="Recipients" />
-          <input type="text" placeholder="Subject" />
-          <textarea rows="20"></textarea>
+      <form onSubmit={formSubmit}>
+        <div className="compose__body">
+          <div className="compose__bodyForm">
+            <input
+              type="email"
+              placeholder="Recipients"
+              value={to}
+              onChange={(e) => setTo(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Subject"
+              value={subject}
+              onChange={(e) => setSubject(e.target.value)}
+            />
+            <textarea rows="20" onChange={(e) => setMessage(e.target.value)}>
+              {message}
+            </textarea>
+          </div>
         </div>
-      </div>
-      <div className="compose__footer">
-        <div className="compose__footerLeft">
-          <button type="submit">
-            Send <ArrowDropDownIcon />
-          </button>
+        <div className="compose__footer">
+          <div className="compose__footerLeft">
+            <button type="submit">
+              Send <ArrowDropDownIcon />
+            </button>
+          </div>
+          <div className="compose__footerRight">
+            <FormatColorTextIcon />
+            <LinkIcon />
+            <InsertEmoticonIcon />
+            <NoteAddIcon />
+            <PhotoIcon />
+            <PhonelinkLockIcon />
+            <CreateIcon />
+            <MoreVertIcon />
+            <DeleteIcon />
+          </div>
         </div>
-        <div className="compose__footerRight">
-          <FormatColorTextIcon />
-          <LinkIcon />
-          <InsertEmoticonIcon />
-          <NoteAddIcon />
-          <PhotoIcon />
-          <PhonelinkLockIcon />
-          <CreateIcon />
-          <MoreVertIcon />
-          <DeleteIcon />
-        </div>
-      </div>
+      </form>
     </div>
   );
 };
