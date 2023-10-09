@@ -17,11 +17,18 @@ import VideocamIcon from "@mui/icons-material/Videocam";
 import KeyboardIcon from "@mui/icons-material/Keyboard";
 import { Avatar } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { useDispatch } from "react-redux";
+import { openSendMessage } from "./features/mailSlice";
 
 const SideBar = () => {
+  const dispatch = useDispatch();
   return (
     <div className="sidebar">
-      <Button startIcon={<AddIcon />} className="compose__btn">
+      <Button
+        startIcon={<AddIcon />}
+        className="compose__btn"
+        onClick={() => dispatch(openSendMessage())}
+      >
         Compose
       </Button>
       <div className="sidebar_scroll">
