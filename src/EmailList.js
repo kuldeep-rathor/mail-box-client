@@ -9,14 +9,16 @@ const EmailList = () => {
   const [emails, setEmails] = useState([]);
 
   useEffect(() => {
-    db.collection("emails").onSnapshot((snapshot) => {
-      setEmails(
-        snapshot.docs.map((doc) => ({
-          id: doc.id,
-          data: doc.data(),
-        }))
-      );
-    });
+    db.collection("emails")
+      .orderBy("timestamp", "desc")
+      .onSnapshot((snapshot) => {
+        setEmails(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            data: doc.data(),
+          }))
+        );
+      });
   }, []);
   return (
     <div className="emaillist">
@@ -25,6 +27,7 @@ const EmailList = () => {
       {emails.map(({ id, data }) => {
         return (
           <EmailBody
+            key={id}
             name={data.to}
             subject={data.subject}
             message={data.message}
