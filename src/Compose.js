@@ -5,7 +5,6 @@ import HeightIcon from "@mui/icons-material/Height";
 import CloseIcon from "@mui/icons-material/Close";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import FormatColorTextIcon from "@mui/icons-material/FormatColorText";
-import AttachFileIcon from "@mui/icons-material/AttachFile";
 import LinkIcon from "@mui/icons-material/Link";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
@@ -16,6 +15,8 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch } from "react-redux";
 import { closeSendMessage } from "./features/mailSlice";
+import db from "./firebase";
+import firebase from "firebase";
 
 const Compose = () => {
   const [to, setTo] = useState("");
@@ -24,7 +25,26 @@ const Compose = () => {
   const dispatch = useDispatch();
   const formSubmit = (e) => {
     e.preventDefault();
-    
+    if (to === "") {
+      return alert("To is required");
+    }
+    if (subject === "") {
+      return alert("Subject is required");
+    }
+    if (message === "") {
+      return alert("Message is required");
+    }
+    db.collection("emails").add({
+      to,
+      subject,
+      message,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+    setTo("");
+    setMessage("");
+    setSubject("");
+    alert("Email sent Successfully");
+    dispatch(closeSendMessage());
   };
   return (
     <div className="compose">
@@ -49,7 +69,7 @@ const Compose = () => {
             />
             <input
               type="text"
-              placeholder="Subject"
+              placeholder="Subject "
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
             />

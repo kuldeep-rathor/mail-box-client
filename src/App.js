@@ -8,7 +8,7 @@ import { selectSendMessageIsOpen } from "./features/mailSlice";
 
 function App() {
   const isMessageOpen = useSelector(selectSendMessageIsOpen);
-  console.log(isMessageOpen)
+  // console.log(isMessageOpen)
   return (
     <div className="App">
       <Header />
