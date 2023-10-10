@@ -13,15 +13,17 @@ import PhonelinkLockIcon from "@mui/icons-material/PhonelinkLock";
 import CreateIcon from "@mui/icons-material/Create";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { closeSendMessage } from "./features/mailSlice";
-import db from "./firebase";
+import { db } from "./firebase";
 import firebase from "firebase";
+import { selectUser } from "./features/userSlice";
 
 const Compose = () => {
   const [to, setTo] = useState("");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
+  const user = useSelector(selectUser);
   const dispatch = useDispatch();
   const formSubmit = (e) => {
     e.preventDefault();
@@ -38,6 +40,9 @@ const Compose = () => {
       to,
       subject,
       message,
+      
+      from: user.email,
+      fromName: user.displayName,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
     setTo("");

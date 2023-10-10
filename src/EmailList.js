@@ -3,7 +3,7 @@ import "./css/emaillist.css";
 import EmailListSetting from "./EmailListSetting";
 import EmailType from "./EmailType";
 import EmailBody from "./EmailBody";
-import db from "./firebase";
+import { db } from "./firebase";
 
 const EmailList = () => {
   const [emails, setEmails] = useState([]);
@@ -28,7 +28,8 @@ const EmailList = () => {
         return (
           <EmailBody
             key={id}
-            name={data.to}
+            name={data.fromName}
+            email ={data.from}
             subject={data.subject}
             message={data.message}
             time={new Date(data.timestamp?.seconds * 1000).toLocaleTimeString()}

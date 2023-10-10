@@ -7,7 +7,22 @@ import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import SettingsIcon from "@mui/icons-material/Settings";
 import AppsIcon from "@mui/icons-material/Apps";
 import "./css/header.css";
+import { useSelector } from "react-redux";
+import { selectUser } from "./features/userSlice";
+import firebase from "firebase";
+
 const Header = () => {
+  const user = useSelector(selectUser);
+
+  const handleSignOut = () => {
+    firebase.auth().signOut().then(() => {
+      // Sign-out successful.
+    }).catch((error) => {
+      // An error happened.
+      console.error(error);
+    });
+  };
+
   return (
     <div className="header">
       <div className="header__left">
@@ -40,7 +55,10 @@ const Header = () => {
         <IconButton>
           <AppsIcon></AppsIcon>
         </IconButton>
-        <Avatar src="https://lh3.googleusercontent.com/a/ACg8ocJXQ2e7hd79LWiVkFGlXu4lbIbYOiiLpZPRtgG8c_9JiR_U=s288-c-no"></Avatar>
+        <Avatar
+          src={user?.photoURL}
+          onClick={handleSignOut}
+        ></Avatar>
       </div>
     </div>
   );

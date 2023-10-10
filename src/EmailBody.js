@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { openMessage } from "./features/mailSlice";
 
-const EmailBody = ({ name, subject, message, time }) => {
+const EmailBody = ({ name, email, subject, message, time }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const setMail = () => {
@@ -16,6 +16,7 @@ const EmailBody = ({ name, subject, message, time }) => {
         name,
         subject,
         message,
+        email,
         time,
       })
     );
